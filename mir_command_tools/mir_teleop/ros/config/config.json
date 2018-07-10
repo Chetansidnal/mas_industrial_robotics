@@ -1,7 +1,7 @@
 {"nodes" :[ 
     {
         "name" : "youbot_oodl_driver",
-        "connect" : "tcp://*:5555"
+        "connect" : "tcp://127.0.0.1:5555"
     }],
 "pub" :[
 	{"name" : "mir_teleop_joypad",
