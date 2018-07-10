@@ -20,7 +20,7 @@ std::cout<<"Path json--------"<<config_json<<endl;
     diaglib prodiag;
     prodiag.start_publishing("Node Has started", config_json);
 std::cout<<"Yeah after publishing ---------------------########"<<endl;
-    // TeleOpJoypad* teleop = new TeleOpJoypad(nh,prodiag);
+    TeleOpJoypad* teleop = new TeleOpJoypad(nh,prodiag);
 
     // ros::Rate loop_rate(50);
 
@@ -29,7 +29,7 @@ std::cout<<"Yeah after publishing ---------------------########"<<endl;
     ros::Rate r(50); // 10 hz
 while (ros::ok)
 {
-  TeleOpJoypad* teleop = new TeleOpJoypad(nh,prodiag);
+  prodiag.check_dependent(config_json);
   ros::spinOnce();
   r.sleep();
 }
