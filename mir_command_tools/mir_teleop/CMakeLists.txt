@@ -13,6 +13,7 @@ find_package(catkin REQUIRED
     std_srvs
     mcr_manipulation_msgs
     roslint
+   diagnose
 )
 
 find_package(Boost REQUIRED)

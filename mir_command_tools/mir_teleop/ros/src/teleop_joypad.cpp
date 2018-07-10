@@ -10,7 +10,7 @@
 #include <mir_teleop/teleop_joypad.h>
 #include <string>
 
-TeleOpJoypad::TeleOpJoypad(ros::NodeHandle &nh)
+TeleOpJoypad::TeleOpJoypad(ros::NodeHandle &nh, diaglib& d)
 {
     nh_ = &nh;
 
@@ -25,13 +25,14 @@ TeleOpJoypad::TeleOpJoypad(ros::NodeHandle &nh)
     button_arm_joint_3_4_pressed_prev_ = false;
     button_arm_joint_5_pressed_prev_ = false;
     is_one_arm_joint_button_pressed_ = false;
-
+	d.update("S2-001-001", "Initializing parameters ");
     dyn_recfg_cb = boost::bind(&TeleOpJoypad::cbDynamicReconfigure, this, _1, _2);
     dyn_recfg_server.setCallback(dyn_recfg_cb);
 
     if (!this->getJoypadConfigParameter())
     {
         ROS_ERROR("could not get joypad parameters.");
+	 d.update("E2-001-002", "could not get joypad parameters. ");
         exit(0);
     }
 
@@ -40,14 +41,17 @@ TeleOpJoypad::TeleOpJoypad(ros::NodeHandle &nh)
     if (this->getArmParameter())
     {
         ROS_INFO("Arm joint limit parameters available. Joint space control: ACTIVE");
-
+	 d.update("s2-001-003", "Joint space control: ACTIVE ");
         sub_joint_states_ = nh_->subscribe < sensor_msgs::JointState > ("/joint_states", 1,
             &TeleOpJoypad::cbJointStates, this);
         pub_arm_joint_vel_ = nh_->advertise < brics_actuator::JointVelocities >
             ("/arm_1/arm_controller/velocity_command", 1);
     }
     else
+        {
         ROS_ERROR("No arm joint limit parameters available. Joint space control: DEACTIVATED.");
+        d.update("E2-001-004", "Joint space control: DEACTIVATED ");
+    }
 
     sub_joypad_ = nh_->subscribe < sensor_msgs::Joy > ("/joy", 1, &TeleOpJoypad::cbJoypad, this);
     pub_base_cart_vel_ = nh_->advertise < geometry_msgs::Twist > ("cmd_vel", 1);

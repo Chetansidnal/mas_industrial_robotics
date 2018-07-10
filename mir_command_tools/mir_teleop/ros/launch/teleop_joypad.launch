@@ -1,5 +1,8 @@
 <?xml version="1.0" ?>
 <launch>
+
+<!-- Path to config.json for publishing -->
+<rosparam param="config_json">"/home/sdp/ros/robocup/src/mas_industrial_robotics/mir_command_tools/mir_teleop/ros/config/config.json" </rosparam>
   <arg name="joypad_cfg_file" default="$(find mir_teleop)/ros/config/logitech.yaml"/>
   <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
   <arg name="gripper_command_topic" default="/arm_1/gripper_command" />
@@ -15,7 +18,6 @@
   <node pkg="joy" type="joy_node" name="joy_node">
     <rosparam command="load" file="$(find mir_hardware_config)/$(arg robot)/config/joy.yaml"/>
   </node>
-
   <!-- start youbot teleop node -->
   <node pkg="mir_teleop" type="teleop_joypad_node" name="mir_teleop_joypad" output="screen">
     <remap from="~cmd_vel" to="/cmd_vel_prio_high" />    <!-- remap for twist mux -->

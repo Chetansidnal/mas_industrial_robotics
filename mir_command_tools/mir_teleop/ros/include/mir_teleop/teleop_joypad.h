@@ -27,6 +27,7 @@
 #include <boost/units/systems/si.hpp>
 #include <boost/units/io.hpp>
 
+#include <diagnose/diaglib.hpp> //diagnose
 #include "mir_teleop/TeleopJoypadConfig.h"
 
 #define MAX_JOYPAD                      1.0
@@ -34,7 +35,7 @@
 class TeleOpJoypad
 {
 public:
-    explicit TeleOpJoypad(ros::NodeHandle &nh);
+    explicit TeleOpJoypad(ros::NodeHandle &nh, diaglib& d);
 
 private:
     bool getJoypadConfigParameter();
