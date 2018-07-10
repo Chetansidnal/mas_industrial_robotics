@@ -1,1 +1,10 @@
-{"pub" :[{"name" : "mir_teleop_joypad","connect" : "tcp://*:5557"}]}
+{"nodes" :[ 
+    {
+        "name" : "youbot_oodl_driver",
+        "connect" : "tcp://*:5555"
+    }],
+"pub" :[
+	{"name" : "mir_teleop_joypad",
+	"connect" : "tcp://*:5557"
+	}
+]}
