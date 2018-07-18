@@ -13,9 +13,9 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "teleop_joypad");
     ros::NodeHandle nh("~");
-    string config_json;
+    std::string config_json;
 
-    nh.getParam("config_json", config_json);
+    nh.getParam("/mir_teleop_joypad/config_json",config_json);
     std::cout<<"Path json--------"<<config_json<<endl;
     diaglib prodiag;
     prodiag.start_publishing("Node Has started", config_json);
@@ -26,12 +26,12 @@ int main(int argc, char **argv)
 
     // ros::spin();
 
-    ros::Rate r(50); // 10 hz
+    ros::Rate r(10); // 10 hz
     while (ros::ok)
     {
-    prodiag.check_dependent(config_json);
-    ros::spinOnce();
-    r.sleep();
+      prodiag.check_dependent(config_json);
+      ros::spinOnce();
+      r.sleep();
     }
 
     delete teleop;
