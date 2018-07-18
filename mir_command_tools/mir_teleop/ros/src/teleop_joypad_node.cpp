@@ -14,12 +14,12 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "teleop_joypad");
     ros::NodeHandle nh("~");
     string config_json;
-std::cout<<" HEllow Its owkrking herer ---------------------########"<<endl;
-    nh.getParam("/config_json", config_json);
-std::cout<<"Path json--------"<<config_json<<endl;
+
+    nh.getParam("config_json", config_json);
+    std::cout<<"Path json--------"<<config_json<<endl;
     diaglib prodiag;
     prodiag.start_publishing("Node Has started", config_json);
-std::cout<<"Yeah after publishing ---------------------########"<<endl;
+
     TeleOpJoypad* teleop = new TeleOpJoypad(nh,prodiag);
 
     // ros::Rate loop_rate(50);
@@ -27,12 +27,12 @@ std::cout<<"Yeah after publishing ---------------------########"<<endl;
     // ros::spin();
 
     ros::Rate r(50); // 10 hz
-while (ros::ok)
-{
-  prodiag.check_dependent(config_json);
-  ros::spinOnce();
-  r.sleep();
-}
+    while (ros::ok)
+    {
+    prodiag.check_dependent(config_json);
+    ros::spinOnce();
+    r.sleep();
+    }
 
     delete teleop;
 }
