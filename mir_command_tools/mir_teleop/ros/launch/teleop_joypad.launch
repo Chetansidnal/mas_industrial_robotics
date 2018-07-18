@@ -3,7 +3,7 @@
 
 <!-- Path to config.json for publishing -->
 <!--rosparam param="config_json">"/home/sdp/ros/robocup/src/mas_industrial_robotics/mir_command_tools/mir_teleop/ros/config/config.json" </rosparam-->
-<param name= "config_json" type="string" value="$(find mir_teleop)/ros/config/config.json">
+  <param name= "config_json" type="string" value="$(find mir_teleop)/ros/config/config.json"/>
   <arg name="joypad_cfg_file" default="$(find mir_teleop)/ros/config/logitech.yaml"/>
   <arg name="robot" default="$(optenv ROBOT !!NO_ROBOT_SET!!)"/>
   <arg name="gripper_command_topic" default="/arm_1/gripper_command" />
